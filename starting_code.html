@@ -31,7 +31,7 @@
 				$.each(items, function(index, item) {
 					var li;
 					if (item.category != currentCategory) {
-						ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+						ul.append("<li class='ui-autocomplete-category red'>" + item.category + "</li>");
 						currentCategory = item.category;
 					}
 					li = that._renderItemData(ul, item);
@@ -292,15 +292,56 @@
 		  { label:"South Africa", category:"Africa" },
 		  { label:"Zambia", category:"Africa" },
 		  { label:"Zimbabwe", category:"Africa" },
+		  { label:"Unknown", category:""}
 		]	
 
+		function split( val ) {
+      		return val.split( /,\s*/ );
+    	}
 
-		$(function() {
-			$("#search").catcomplete({
-				delay: 0,
-				source: data
-			});
-		});
+    	function extractLast( term ) {
+      		return split( term ).pop();
+   		}
+
+   	    $( "#search" )
+	      // don't navigate away from the field on tab when selecting an item
+	      .bind( "keydown", function( event ) {
+	        if ( event.keyCode === $.ui.keyCode.TAB &&
+	            $( this ).catcomplete( "instance" ).menu.active ) {
+	          event.preventDefault();
+	        }
+	      })
+	      .catcomplete({
+	        minLength: 0,
+	        source: function( request, response ) {
+	          // delegate back to catcomplete, but extract the last term
+	          response( $.ui.autocomplete.filter(
+	            data, extractLast( request.term ) ) );
+	        },
+	        focus: function() {
+	          // prevent value inserted on focus
+	          return false;
+	        },
+	        select: function( event, ui ) {
+	          var terms = split( this.value );
+	          // remove the current input
+	          terms.pop();
+	          // add the selected item
+	          terms.push( ui.item.value );
+	          // add placeholder to get the comma-and-space at the end
+	          terms.push( "" );
+	          this.value = terms.join( ", " );
+	          return false;
+	        }
+          });
+  	
+
+		// $(function() {
+		// 	$("#search").catcomplete({
+		// 		delay: 0,
+		// 		source: data
+		// 	});
+		// });
 	</script>
  
 </body>
