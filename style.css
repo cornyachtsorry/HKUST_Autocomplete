@@ -1,4 +1,51 @@
+@font-face {
+    font-family: Dream Orphans Bold;
+    src: url(dream-orphans-bd.ttf);
+}
+
 body {
 	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
 	font-size: 62.5%;
+}
+
+.dream-orphans {
+	font-family: "Dream Orphans Bold";
+	font-size: 50px;
+}
+
+.searchLabel {
+	position: fixed;
+	margin: auto;
+	top: 50%;
+  	left: 50%;
+  	margin-top: -50px;
+  	margin-left: -100px;
+}
+
+.searchBox {
+	position: fixed;
+	margin: auto;
+	top: 60%;
+  	margin-top: -50px;
+  	margin-left: 400px;
+}
+
+input[type=text] {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+  width: 200%;
+  font-size: 20px;
+}
+
+input[type=text]:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
 }
