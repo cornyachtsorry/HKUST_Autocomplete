@@ -3,3 +3,4 @@ The objective of the assignment is to create an autocomplete feature using HTML,
 
 ####Requirements:
 1. [x] Implement basic functionality: when user types in abc, list all strings in datafile that contain abc anywhere in the strings.
+2. [x] Implement extended function: scrollable results. When displaying a long list of options, set the max-height for the autocomplete menu, scroll through the results. 
