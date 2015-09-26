@@ -15,7 +15,6 @@ body {
 
 .searchLabel {
 	position: fixed;
-	margin: auto;
 	top: 50%;
   	left: 50%;
   	margin-top: -50px;
@@ -24,10 +23,9 @@ body {
 
 .searchBox {
 	position: fixed;
-	margin: auto;
 	top: 60%;
-  	margin-top: -50px;
-  	margin-left: 400px;
+  	margin-top: -30px;
+  	margin-left: 350px;
 }
 
 input[type=text] {
@@ -40,7 +38,7 @@ input[type=text] {
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
   width: 200%;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 input[type=text]:focus {
@@ -56,9 +54,19 @@ input[type=text]:focus {
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
 }
+
+.ui-autocomplete-category {
+	font-weight: bold;
+	padding: .2em .4em;
+	margin: .8em 0 .2em;
+	line-height: 1.5;
+}
+
+
 /* IE 6 doesn't support max-height
 * we use height instead, but this forces the menu to always be this tall
 */
 * html .ui-autocomplete {
 	height: 100px;
 }
+
