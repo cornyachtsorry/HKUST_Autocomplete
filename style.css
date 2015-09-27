@@ -5,27 +5,29 @@
 
 body {
 	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
-	font-size: 62.5%;
+	font-size: 70%;
+  background-color: black;
 }
 
 .dream-orphans {
 	font-family: "Dream Orphans Bold";
-	font-size: 50px;
+	font-size: 70px;
+  color: white;
 }
 
 .searchLabel {
 	position: fixed;
-	top: 50%;
-  	left: 50%;
-  	margin-top: -50px;
-  	margin-left: -100px;
+	top: 40%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -130px;
 }
 
 .searchBox {
 	position: fixed;
-	top: 60%;
-  	margin-top: -30px;
-  	margin-left: 350px;
+	top: 50%;
+  margin-top: -30px;
+  margin-left: 340px;
 }
 
 input[type=text] {
@@ -34,7 +36,7 @@ input[type=text] {
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
   outline: none;
-  padding: 3px 0px 3px 3px;
+  padding: 10px;
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
   width: 200%;
@@ -42,17 +44,17 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-  padding: 3px 0px 3px 3px;
+  box-shadow: 0 0 20px rgba(81, 203, 238, 1);
+  padding: 10px;
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
 .ui-autocomplete {
-	max-height: 100px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
+	max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
 }
 
 .ui-autocomplete-category {
@@ -62,14 +64,15 @@ input[type=text]:focus {
 	line-height: 1.5;
 }
 
-
-/* IE 6 doesn't support max-height
-* we use height instead, but this forces the menu to always be this tall
-*/
-* html .ui-autocomplete {
-	height: 100px;
-}
-
 .red {
 	color: red;
+}
+
+.blue-text {
+  font-weight: bold;
+  color:blue;
+}
+
+.ui-menu-item a{
+  font-weight: bold;
 }

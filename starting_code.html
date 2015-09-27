@@ -19,29 +19,6 @@
 
 
 	<script>
-
-		$.widget("custom.catcomplete", $.ui.autocomplete, {
-			_create: function() {
-				this._super();
-				this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
-			},
-			_renderMenu: function(ul, items) {
-				var that = this,
-					currentCategory = "";
-				$.each(items, function(index, item) {
-					var li;
-					if (item.category != currentCategory) {
-						ul.append("<li class='ui-autocomplete-category red'>" + item.category + "</li>");
-						currentCategory = item.category;
-					}
-					li = that._renderItemData(ul, item);
-					if (item.category) {
-						li.attr("aria-label", item.category + " : " + item.label);
-					}
-				});
-			}
-		});
-
 		
 		// Data is obtained from http://ourairports.com/data/ in csv format
 		// data is the variable to store our 246 list of countries and each corresponding continent/region
@@ -303,6 +280,64 @@
       		return split( term ).pop();
    		}
 
+   		function highlightText(text, $node) {
+   			var searchText = $.trim(text).toLowerCase(), currentNode = $node.get(0).firstChild, matchIndex, newTextNode, newSpanNode;
+			while ((matchIndex = currentNode.data.toLowerCase().indexOf(searchText)) >= 0) {
+				newTextNode = currentNode.splitText(matchIndex);
+				currentNode = newTextNode.splitText(searchText.length);
+				newSpanNode = document.createElement("span");
+				newSpanNode.className = "blue-text";
+				currentNode.parentNode.insertBefore(newSpanNode, currentNode);
+				newSpanNode.appendChild(newTextNode);
+			}
+		}
+
+		
+		$.widget("custom.catcomplete", $.ui.autocomplete, {
+			_create: function() {
+				this._super();
+				this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+			},
+			_renderMenu: function(ul, items) {
+				var that = this,
+					currentCategory = "";
+				$.each(items, function(index, item) {
+					var li;
+					if (item.category != currentCategory) {
+						ul.append("<li class='ui-autocomplete-category red'>" + item.category + "</li>");
+						currentCategory = item.category;
+					}
+					li = that._renderItemData(ul, item);
+					if (item.category) {
+						li.attr("aria-label", item.category + " : " + item.label);
+					}
+				});
+			},
+			// Replace the matched text with a custom span.
+			// This span uses the class found in the highlightClass option
+			_renderItem: function( ul, item ) {
+				// // regex is a regular expression, used to find and capture the query string withing the item label
+				// // gi is flags for global match and ignore case
+				// var regex = new RegExp("(" + this.term + ")", "gi")
+				// 	// cls is the class applied to any matching text
+				// 	cls = this.options.highlightClass,
+				// 	// template is a new span element we'll replace the query string with inside the label
+				// 	template = "<span class='" + cls + "'>$1</span>",
+				// 	// label the resulting HTML we'll pass to the menu item
+				// 	label = item.label.replace( regex, template ),
+				// 	$li = $("<li/>").appendTo(ul);
+				// // Create and return the custom menu item content
+				// $("<a/>").attr("href", "#")
+				// 		 .html(label)
+				// 		 .appendTo($li);
+				// return $li;
+				var $a = $("<a></a>").text(item.label);
+				highlightText(this.term, $a);
+				return $("<li></li>").append($a).appendTo(ul);
+			}
+		});
+
+		
    	    $( "#search" )
 	      // don't navigate away from the field on tab when selecting an item
 	      .bind( "keydown", function( event ) {
@@ -313,6 +348,7 @@
 	      })
 	      .catcomplete({
 	        minLength: 0,
+	        highlightClass: "blue-text",
 	        source: function( request, response ) {
 	          // delegate back to catcomplete, but extract the last term
 	          response( $.ui.autocomplete.filter(
@@ -334,14 +370,6 @@
 	          return false;
 	        }
           });
-  	
-
-		// $(function() {
-		// 	$("#search").catcomplete({
-		// 		delay: 0,
-		// 		source: data
-		// 	});
-		// });
 	</script>
  
 </body>
